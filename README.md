@@ -1,36 +1,165 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scheduler
+
+A full-stack scheduling application for coordinating communications between
+organizations and the public. Built with Next.js 15, TypeScript, and modern web
+technologies.
+
+## Overview
+
+The Scheduler application supports the coordination, scheduling, and task
+management of various kinds of communications (events, news releases, social
+media) between organizations and the public.
+
+### Key Features
+
+- **Real-time Updates**: Live synchronization across multiple clients
+- **Responsive Design**: Optimized for both desktop and mobile devices
+- **User Roles**: Support for event owners, scheduler admins, and executives
+- **CRUD Operations**: Full create, read, update, delete functionality for
+  entries
+- **Advanced Table**: Sortable, filterable, and paginated data views
+- **Calendar Integration**: Multiple calendar views (day/week/month)
+
+## Tech Stack
+
+### Frontend
+
+- **Next.js 15** - React framework with SSR
+- **TypeScript** - Type-safe JavaScript
+- **TanStack Query** - Data fetching and caching
+- **TanStack Table** - Advanced table functionality
+- **shadcn/ui** - Modern UI components
+- **React Hook Form** - Form handling
+- **Zod** - Schema validation
+- **Tailwind CSS** - Utility-first styling
+- **Lucide React** - Icon library
+
+### Backend (Planned)
+
+- **NestJS** - Node.js framework
+- **GraphQL** - API layer
+- **Supabase** - Database and authentication
+- **WebSockets** - Real-time communication
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20 or later
+- npm or yarn
+- Git
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd schedule
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up Git hooks:
+
+```bash
+./scripts/setup-git-hooks.sh
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Available Scripts
 
-## Learn More
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint issues
+- `npm run type-check` - Run TypeScript type checking
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+- `npm run commit` - Interactive commit message creation
+- `npm test` - Run tests
 
-To learn more about Next.js, take a look at the following resources:
+### Code Quality
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project enforces high code quality standards:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **TypeScript** - Type checking
+- **Husky** - Git hooks
+- **Commitlint** - Commit message validation
+- **Lint-staged** - Pre-commit file processing
 
-## Deploy on Vercel
+### Commit Guidelines
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We use [Conventional Commits](https://www.conventionalcommits.org/) for
+consistent commit messages. See [COMMIT_GUIDELINES.md](./COMMIT_GUIDELINES.md)
+for detailed information.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### Quick Commit Examples
+
+```bash
+# Interactive commit (recommended)
+npm run commit
+
+# Manual commits
+git commit -m "feat(calendar): add month view toggle"
+git commit -m "fix(table): resolve sorting issue with date columns"
+git commit -m "test(forms): add validation tests for entry form"
+git commit -m "wip(forms): implement entry validation logic"
+git commit -m "ui(components): improve button hover states"
+git commit -m "db(schema): add indexes for entry queries"
+git commit -m "docs(api): update GraphQL schema documentation"
+```
+
+## Automated Workflows
+
+### CI/CD Pipeline
+
+GitHub Actions automatically:
+
+- **Lint and Type Check** - On every push and PR
+- **Build Verification** - Ensures code compiles
+- **Security Audit** - Checks for vulnerabilities
+- **Test Execution** - Runs test suite
+
+### Automated Commits
+
+Scheduled maintenance tasks:
+
+- **Dependency Updates** - Weekly dependency updates
+- **Security Patches** - Automated security fixes
+- **Documentation Updates** - Keep docs current
+- **Code Cleanup** - Format and optimize code
+
+## Contributing
+
+**TODO**
+
+## Documentation
+
+- [Commit Guidelines](./COMMIT_GUIDELINES.md) - Detailed commit standards
+- [Production Plan](./PRODUCTION_PLAN.md) - Development roadmap
+- [Project Prompt](./PROJECT_PROMPT.md) - Original project requirements
+
+## License
+
+This project is private and proprietary.
+
+---
+
+**Last updated**: 2024-12-19
