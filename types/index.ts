@@ -44,7 +44,7 @@ export interface Location {
 export interface CommunicationEntry {
   id: string;
   // Overview
-  category: Category;
+  category: Category[];
   title: string;
   relatedTo?: RelatedTo;
   summary: string;

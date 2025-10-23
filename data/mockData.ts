@@ -3,7 +3,7 @@ import { CommunicationEntry } from '@/types';
 export const mockEntries: CommunicationEntry[] = [
   {
     id: '1',
-    category: 'event',
+    category: ['event'],
     title: 'Community Town Hall',
     summary:
       'Public town hall with Q&A and representative taking questions from the media.',
@@ -35,7 +35,7 @@ export const mockEntries: CommunicationEntry[] = [
   },
   {
     id: '2',
-    category: 'news release',
+    category: ['news release'],
     title: 'Quarterly Economic Report',
     summary:
       'Release of Q3 economic indicators and growth projections for the region.',
@@ -61,7 +61,7 @@ export const mockEntries: CommunicationEntry[] = [
   },
   {
     id: '3',
-    category: 'social media',
+    category: ['social media'],
     title: 'Climate Action Campaign Launch',
     summary:
       'Multi-platform social media campaign promoting new climate initiatives.',
@@ -87,7 +87,7 @@ export const mockEntries: CommunicationEntry[] = [
   },
   {
     id: '4',
-    category: 'conference',
+    category: ['conference', 'event'],
     title: 'Digital Government Summit',
     summary:
       'Annual conference showcasing digital transformation initiatives across government departments.',
@@ -120,7 +120,7 @@ export const mockEntries: CommunicationEntry[] = [
   },
   {
     id: '5',
-    category: 'observance',
+    category: ['observance'],
     title: 'Remembrance Day Ceremony',
     summary: 'Annual ceremony honoring veterans and fallen soldiers.',
     issue: false,
@@ -152,7 +152,7 @@ export const mockEntries: CommunicationEntry[] = [
   },
   {
     id: '6',
-    category: 'tv',
+    category: ['tv', 'news release'],
     title: 'Budget Announcement Interview',
     summary:
       'Live television interview discussing the upcoming budget announcement.',
@@ -177,8 +177,8 @@ export const mockEntries: CommunicationEntry[] = [
     updatedAt: '2025-01-18T12:00:00Z',
   },
   {
-    id: '2',
-    category: 'event',
+    id: '7',
+    category: ['event'],
     title: 'Budget Planning Session',
     summary: 'Internal planning session for upcoming fiscal budget review.',
     issue: true,
@@ -208,8 +208,8 @@ export const mockEntries: CommunicationEntry[] = [
     updatedAt: '2025-01-20T09:30:00Z',
   },
   {
-    id: '3',
-    category: 'event',
+    id: '8',
+    category: ['event'],
     title: 'Press Conference on Healthcare',
     summary: 'Media event announcing new healthcare funding.',
     issue: false,
@@ -239,8 +239,8 @@ export const mockEntries: CommunicationEntry[] = [
     updatedAt: '2025-01-22T12:00:00Z',
   },
   {
-    id: '4',
-    category: 'event',
+    id: '9',
+    category: ['event'],
     title: 'Indigenous Affairs Roundtable',
     summary: 'Consultation session with Indigenous leaders and stakeholders.',
     issue: true,
@@ -270,8 +270,8 @@ export const mockEntries: CommunicationEntry[] = [
     updatedAt: '2025-01-25T11:45:00Z',
   },
   {
-    id: '5',
-    category: 'event',
+    id: '10',
+    category: ['event'],
     title: 'Environmental Policy Forum',
     summary: 'Panel discussion on renewable energy initiatives.',
     issue: false,

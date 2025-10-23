@@ -22,16 +22,16 @@
 - [x] `app/globals.css`: Tailwind base styles and custom tweaks; verify table pinning and responsiveness.
 - [x] `lib/utils.ts`: Utility helpers (e.g., className utilities) shared by UI components.
 - [x] `next.config.ts`, `tsconfig.json`, `eslint.config.mjs`: Build/tooling configuration aligned with Next.js 15 and TypeScript; ensure strictness and path aliases match codegen later.
-- [ ] Testing setup: Jest configuration, React Testing Library setup, test utilities, and initial component tests for UI primitives.
+- [x] Testing setup: Jest configuration, React Testing Library setup, test utilities, and initial component tests for UI primitives.
 
 ## Phase 1 — Product Scope & Architecture Hardening
 
 - [ ] Clarify phase-1 scope: Entries list, calendar, new entry form, entry detail.
-- [ ] Define authoritative domain model for the Communications Object (types and constraints).
+<!-- - [ ] Define authoritative domain model for the Communications Object (types and constraints).
 - [ ] Decide real-time strategy and transport shape (GraphQL Subscriptions vs WebSocket events).
 - [ ] Select auth approach for phase 1: mock vs Supabase Auth or NextAuth.js with an email provider.
 - [ ] Document non-functional requirements: uptime SLO, latency targets, accessibility, browser support.
-- [ ] Define testing strategy: unit test coverage targets, integration test scope, e2e test critical paths.
+- [ ] Define testing strategy: unit test coverage targets, integration test scope, e2e test critical paths. -->
 
 Deliverables:
 

@@ -81,13 +81,17 @@ export default function EntriesList() {
               </div>
             </div>
             <div className='flex items-center space-x-3'>
-              <Button variant='outline' size='sm'>
-                <Calendar className='h-4 w-4 mr-2' />
-                Calendar View
+              <Button variant='outline' size='sm' asChild>
+                <a href='/calendar'>
+                  <Calendar className='h-4 w-4 mr-2' />
+                  Calendar View
+                </a>
               </Button>
-              <Button size='sm'>
-                <Plus className='h-4 w-4 mr-2' />
-                New Entry
+              <Button size='sm' asChild>
+                <a href='/newentry'>
+                  <Plus className='h-4 w-4 mr-2' />
+                  New Entry
+                </a>
               </Button>
             </div>
           </div>

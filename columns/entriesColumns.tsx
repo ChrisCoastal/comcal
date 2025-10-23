@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { CommunicationEntry } from '@/types';
+import { CommunicationEntry, Category } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { AlertCircle } from 'lucide-react';
 import { categoryColors, statusColors } from '@/lib/constants';
@@ -47,22 +47,32 @@ export function useEntriesColumns(): ColumnDef<CommunicationEntry>[] {
           size: 300,
           minSize: 250,
         }),
-        columnHelper.accessor('category', {
+        columnHelper.accessor(row => row.category, {
+          id: 'category',
           header: 'Category',
           cell: ({ row }) => {
-            const category = row.original.category;
+            const categories = row.original.category;
             return (
-              <Badge
-                className={
-                  categoryColors[category] || 'bg-neutral-100 text-neutral-800'
-                }
-              >
-                {category}
-              </Badge>
+              <div className='flex flex-wrap gap-1'>
+                {categories.map((category, index) => (
+                  <Badge
+                    key={index}
+                    className={
+                      categoryColors[category] ||
+                      'bg-neutral-100 text-neutral-800'
+                    }
+                  >
+                    {category}
+                  </Badge>
+                ))}
+              </div>
             );
           },
           filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id));
+            const categories = row.getValue(id) as string[];
+            return value.some((filterValue: string) =>
+              categories.includes(filterValue)
+            );
           },
         }),
         columnHelper.accessor('scheduleStatus', {
