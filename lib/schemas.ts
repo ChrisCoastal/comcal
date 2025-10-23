@@ -1,14 +1,5 @@
 import { z } from 'zod';
-import {
-  Category,
-  LeadOrganization,
-  ScheduleStatus,
-  Representatives,
-  RelatedTo,
-  CommsMaterials,
-} from '@/types';
 
-// Individual schema definitions that match the types exactly
 export const categorySchema = z.enum([
   'event',
   'news release',
@@ -50,6 +41,33 @@ export const commsMaterialsSchema = z.enum([
   'speaking notes',
 ] as const);
 
+// Derived types from individual schemas
+export type Category = z.infer<typeof categorySchema>;
+export type LeadOrganization = z.infer<typeof leadOrgSchema>;
+export type ScheduleStatus = z.infer<typeof statusSchema>;
+export type Representatives = z.infer<typeof representativesSchema>;
+export type RelatedTo = z.infer<typeof relatedToSchema>;
+export type CommsMaterials = z.infer<typeof commsMaterialsSchema>;
+
+// Complex object schemas (defined separately to avoid circular references)
+export const locationSchema = z.object({
+  address: z.string().min(1, 'Address is required'),
+  city: z.string().min(1, 'City is required'),
+  province: z.string().min(1, 'Province is required'),
+  postalCode: z.string().min(1, 'Postal code is required'),
+  country: z.string().min(1, 'Country is required'),
+});
+
+export const commsContactSchema = z.object({
+  firstname: z.string().min(1, 'First name is required'),
+  lastname: z.string().min(1, 'Last name is required'),
+  email: z.email('Valid email is required'),
+});
+
+// Derived types from complex schemas
+export type Location = z.infer<typeof locationSchema>;
+export type CommsContact = z.infer<typeof commsContactSchema>;
+
 // Main form validation schema
 export const formSchema = z
   .object({
@@ -65,11 +83,7 @@ export const formSchema = z
     leadOrganization: leadOrgSchema,
 
     // Planning
-    commsContact: z.object({
-      firstname: z.string().min(1, 'First name is required'),
-      lastname: z.string().min(1, 'Last name is required'),
-      email: z.string().email('Valid email is required'),
-    }),
+    commsContact: commsContactSchema,
     commsMaterial: z.array(commsMaterialsSchema),
     notes: z.string().optional(),
 
@@ -82,19 +96,11 @@ export const formSchema = z
 
     // Event
     representatives: z.array(representativesSchema),
-    location: z
-      .object({
-        address: z.string().min(1, 'Address is required'),
-        city: z.string().min(1, 'City is required'),
-        province: z.string().min(1, 'Province is required'),
-        postalCode: z.string().min(1, 'Postal code is required'),
-        country: z.string().min(1, 'Country is required'),
-      })
-      .optional(),
+    location: locationSchema.optional(),
   })
   .refine(
     data => {
-      // Add date validation - end date must be after start date
+      // end date must be after start date
       if (data.startDate && data.endDate) {
         return new Date(data.startDate) <= new Date(data.endDate);
       }
@@ -106,5 +112,37 @@ export const formSchema = z
     }
   );
 
-// Export the inferred type for use in components
 export type FormData = z.infer<typeof formSchema>;
+
+// CommunicationEntry interface
+export interface CommunicationEntry {
+  id: string;
+  // Overview
+  category: Category[];
+  title: string;
+  relatedTo?: RelatedTo;
+  summary: string;
+  issue: boolean;
+  significance: string;
+  leadOrganization: LeadOrganization;
+
+  // Planning
+  commsContact: CommsContact;
+  commsMaterial: CommsMaterials[];
+  notes?: string;
+
+  // Schedule
+  scheduleStatus: ScheduleStatus;
+  startDate: string; // ISO datetime string
+  endDate: string; // ISO datetime string
+  allDay: boolean;
+  schedulingNotes?: string;
+
+  // Event
+  representatives: Representatives[];
+  location?: Location;
+
+  // Metadata
+  createdAt: string;
+  updatedAt: string;
+}

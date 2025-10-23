@@ -23,7 +23,7 @@ import {
   ScheduleStatus,
   Representatives,
   RelatedTo,
-} from '@/types';
+} from '@/lib/schemas';
 import {
   categoryOptions,
   statusOptions,

@@ -5,7 +5,7 @@ import {
   Representatives,
   RelatedTo,
   CommsMaterials,
-} from '@/types';
+} from '@/lib/schemas';
 
 export const categoryColors: Record<Category, string> = {
   event: 'bg-blue-100 text-blue-800',
