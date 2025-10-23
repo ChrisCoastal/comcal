@@ -1,4 +1,11 @@
-import { Category, ScheduleStatus } from '@/types';
+import {
+  Category,
+  ScheduleStatus,
+  LeadOrganization,
+  Representatives,
+  RelatedTo,
+  CommsMaterials,
+} from '@/types';
 
 export const categoryColors: Record<Category, string> = {
   event: 'bg-blue-100 text-blue-800',
@@ -19,7 +26,8 @@ export const statusColors: Record<ScheduleStatus, string> = {
   confirmed: 'bg-green-100 text-green-800',
 };
 
-export const categoryOptions: Category[] = [
+// Derive arrays from the actual type definitions with proper type safety
+export const categoryOptions = [
   'event',
   'news release',
   'tv',
@@ -30,17 +38,36 @@ export const categoryOptions: Category[] = [
   'fyi',
   'placeholder',
   'other',
-];
+] as const satisfies readonly Category[];
 
-export const statusOptions: ScheduleStatus[] = [
+export const statusOptions = [
   'unknown',
   'tentative',
   'confirmed',
-];
+] as const satisfies readonly ScheduleStatus[];
 
 export const orgOptions = [
   'federal',
   'provincial',
   'crown corp',
   'other',
-] as const;
+] as const satisfies readonly LeadOrganization[];
+
+export const representativesOptions = [
+  'Joe',
+  'Jane',
+  'David',
+  'Ella',
+] as const satisfies readonly Representatives[];
+
+export const relatedToOptions = [
+  'parent',
+  'child',
+  'related',
+] as const satisfies readonly RelatedTo[];
+
+export const commsMaterialOptions = [
+  'news release',
+  'backgrounder',
+  'speaking notes',
+] as const satisfies readonly CommsMaterials[];

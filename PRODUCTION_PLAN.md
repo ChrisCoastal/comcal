@@ -27,6 +27,10 @@
 ## Phase 1 — Product Scope & Architecture Hardening
 
 - [ ] Clarify phase-1 scope: Entries list, calendar, new entry form, entry detail.
+- [x] **Type Safety Improvements**: Implemented shared schema validation with proper type derivation to eliminate duplication between runtime validation (Zod) and compile-time types.
+- [x] **Schema Consolidation**: Created `lib/schemas.ts` with centralized validation schemas that derive from TypeScript types.
+- [x] **Constants Type Safety**: Updated `lib/constants.ts` to derive option arrays from types with proper type safety using `satisfies` operator.
+- [x] **Date Validation**: Added proper date range validation to ensure end date is after start date.
 <!-- - [ ] Define authoritative domain model for the Communications Object (types and constraints).
 - [ ] Decide real-time strategy and transport shape (GraphQL Subscriptions vs WebSocket events).
 - [ ] Select auth approach for phase 1: mock vs Supabase Auth or NextAuth.js with an email provider.
@@ -36,7 +40,8 @@
 Deliverables:
 
 - [ ] Architecture decision record (ADR) for: Backend framework, DB, GraphQL, subscriptions, auth.
-- [ ] Updated `types/` reflecting the finalized schema and enums.
+- [x] Updated `types/` reflecting the finalized schema and enums.
+- [x] Shared validation schemas with proper type derivation and date validation.
 
 ## Phase 2 — Backend Foundations (NestJS + GraphQL)
 
@@ -96,11 +101,16 @@ Deliverables:
 - [ ] Add optimistic updates for snappy UX; reconcile with server via queries/subscriptions.
 - [ ] Introduce the calendar view (day/week/month) fed by the same dataset.
 - [ ] Add frontend integration tests: form validation tests, GraphQL query/mutation tests, optimistic update tests.
+- [ ] **Form UX Improvements**: Implement form persistence (localStorage for draft saving) to prevent data loss on long forms.
+- [ ] **Form State Management**: Consolidate multiple `useState` hooks for selected items into a single state management solution.
+- [ ] **Real-time Validation**: Add field-level validation (e.g., postal code format, email format) with real-time feedback.
+- [ ] **Form Organization**: Consider multi-step wizard or better section organization for the lengthy new entry form.
 
 Deliverables:
 
 - [ ] `useQuery`/`useMutation` hooks (can use codegen) for entries.
 - [ ] Form schemas shared or duplicated carefully to match server.
+- [ ] Enhanced form UX with draft saving and better state management.
 
 ## Phase 7 — Testing Strategy & Coverage
 
@@ -109,12 +119,15 @@ Deliverables:
 - [ ] Add contract tests for GraphQL schema with codegen type checks.
 - [ ] Establish testing standards: minimum coverage thresholds, test naming conventions, test data factories.
 - [ ] Performance testing: load tests for critical endpoints, frontend performance budgets.
+- [ ] **Type Safety Testing**: Add tests for schema validation edge cases and type consistency between frontend and backend.
+- [ ] **Form Testing**: Comprehensive form validation tests including date range validation, required field validation, and error state handling.
 
 Deliverables:
 
 - [ ] CI test matrix with clear pass/fail gates.
 - [ ] Test coverage reports and quality gates.
 - [ ] Automated test data setup and teardown.
+- [ ] Type safety validation tests and form validation test suite.
 
 ## Phase 8 — CI/CD & Environments
 
@@ -158,10 +171,15 @@ Deliverables:
 - [ ] Optimize table virtualization, memoization, and bundle size (code splitting, selective imports).
 - [ ] Accessibility review for forms, table, and calendar. Target WCAG 2.1 AA.
 - [ ] Revisit table state management: persist filters/sort/pinning (URL/localStorage) and centralize state.
+- [ ] **Internationalization**: Add i18n support for multi-language form labels and validation messages.
+- [ ] **Form Analytics**: Implement form analytics to track completion rates, field abandonment, and user behavior patterns.
+- [ ] **Accessibility Enhancements**: Add ARIA labels, keyboard navigation support, and screen reader compatibility for complex form interactions.
 
 Deliverables:
 
 - [ ] Actioned perf and a11y issues with before/after metrics.
+- [ ] i18n implementation with language switching capability.
+- [ ] Form analytics dashboard and user behavior insights.
 
 ## Phase 12 — Data Migration & Rollout
 
@@ -189,6 +207,16 @@ Deliverables:
 - [ ] Test coverage meets minimum thresholds (80%+ unit, 60%+ integration)
 - [ ] All critical user journeys covered by e2e tests
 - [ ] Performance tests pass with acceptable thresholds
+
+## Future Enhancements — Type Safety & Developer Experience
+
+- [ ] **Stricter Typing**: Implement branded types for IDs and dates to prevent mixing different identifier types.
+- [ ] **Better Error Types**: Create specific error types for different validation failures and API responses.
+- [ ] **API Integration Types**: Define comprehensive request/response types for all GraphQL operations.
+- [ ] **Type-Safe Constants**: Consider using const assertions and template literal types for more precise type inference.
+- [ ] **Runtime Type Guards**: Add runtime type checking utilities for API responses and external data validation.
+- [ ] **Code Generation**: Implement GraphQL codegen for automatic type generation from schema.
+- [ ] **Type Documentation**: Add JSDoc comments to complex types and create type documentation for the team.
 
 ## Work Breakdown (Week-by-Week Outline)
 

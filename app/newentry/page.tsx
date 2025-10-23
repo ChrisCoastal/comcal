@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,84 +24,19 @@ import {
   Representatives,
   RelatedTo,
 } from '@/types';
-import { categoryOptions, statusOptions, orgOptions } from '@/lib/constants';
+import {
+  categoryOptions,
+  statusOptions,
+  orgOptions,
+  representativesOptions,
+  relatedToOptions,
+  commsMaterialOptions,
+} from '@/lib/constants';
+import { formSchema, FormData } from '@/lib/schemas';
 
-// Form validation schema
-const formSchema = z.object({
-  // Overview
-  category: z
-    .array(
-      z.enum([
-        'event',
-        'news release',
-        'tv',
-        'radio',
-        'social media',
-        'observance',
-        'conference',
-        'fyi',
-        'placeholder',
-        'other',
-      ] as const)
-    )
-    .min(1, 'At least one category is required'),
-  title: z.string().min(1, 'Title is required'),
-  relatedTo: z.enum(['parent', 'child', 'related'] as const).optional(),
-  summary: z.string().min(1, 'Summary is required'),
-  issue: z.boolean(),
-  significance: z.string().min(1, 'Significance is required'),
-  leadOrganization: z.enum([
-    'federal',
-    'provincial',
-    'crown corp',
-    'other',
-  ] as const),
+// Form validation schema is now imported from lib/schemas.ts
 
-  // Planning
-  commsContact: z.object({
-    firstname: z.string().min(1, 'First name is required'),
-    lastname: z.string().min(1, 'Last name is required'),
-    email: z.email('Valid email is required'),
-  }),
-  commsMaterial: z.array(
-    z.enum(['news release', 'backgrounder', 'speaking notes'] as const)
-  ),
-  notes: z.string().optional(),
-
-  // Schedule
-  scheduleStatus: z.enum(['unknown', 'tentative', 'confirmed'] as const),
-  startDate: z.string().min(1, 'Start date is required'),
-  endDate: z.string().min(1, 'End date is required'),
-  allDay: z.boolean(),
-  schedulingNotes: z.string().optional(),
-
-  // Event
-  representatives: z.array(z.enum(['Joe', 'Jane', 'David', 'Ella'] as const)),
-  location: z
-    .object({
-      address: z.string().min(1, 'Address is required'),
-      city: z.string().min(1, 'City is required'),
-      province: z.string().min(1, 'Province is required'),
-      postalCode: z.string().min(1, 'Postal code is required'),
-      country: z.string().min(1, 'Country is required'),
-    })
-    .optional(),
-});
-
-type FormData = z.infer<typeof formSchema>;
-
-const commsMaterialOptions: CommsMaterials[] = [
-  'news release',
-  'backgrounder',
-  'speaking notes',
-];
-const representativesOptions: Representatives[] = [
-  'Joe',
-  'Jane',
-  'David',
-  'Ella',
-];
-const relatedToOptions: RelatedTo[] = ['parent', 'child', 'related'];
+// Options are now imported from constants.ts
 
 export default function NewEntryPage() {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
