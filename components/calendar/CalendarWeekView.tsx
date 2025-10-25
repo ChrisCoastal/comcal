@@ -98,7 +98,7 @@ export function CalendarWeekView({
                     key={event.id}
                     className={`
                       absolute left-0 right-0 mx-1 p-1 rounded text-xs cursor-pointer hover:opacity-80
-                      ${categoryColors[event.category] || 'bg-gray-100 text-gray-800'}
+                      ${(categoryColors as Record<string, string>)[event.category] || 'bg-gray-100 text-gray-800'}
                     `}
                     style={{
                       top: `${position.top}px`,

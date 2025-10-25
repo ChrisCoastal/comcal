@@ -91,7 +91,7 @@ export function CalendarDayView({ events, currentDate }: CalendarDayViewProps) {
                 <div
                   className={`
                 p-2 rounded text-sm cursor-pointer hover:opacity-80
-                ${categoryColors[event.category] || 'bg-gray-100 text-gray-800'}
+                ${(categoryColors as Record<string, string>)[event.category] || 'bg-gray-100 text-gray-800'}
               `}
                 >
                   <div className='flex items-center gap-2'>
@@ -126,7 +126,7 @@ export function CalendarDayView({ events, currentDate }: CalendarDayViewProps) {
                   key={event.id}
                   className={`
                   absolute left-0 right-0 mx-2 p-3 rounded-lg text-sm cursor-pointer hover:opacity-80 shadow-sm
-                  ${categoryColors[event.category] || 'bg-gray-100 text-gray-800'}
+                  ${(categoryColors as Record<string, string>)[event.category] || 'bg-gray-100 text-gray-800'}
                 `}
                   style={{
                     top: `${position.top}px`,

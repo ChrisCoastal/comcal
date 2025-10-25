@@ -69,7 +69,7 @@ export function CalendarMonthView({
                       key={event.id}
                       className={`
                         text-xs p-1 rounded truncate cursor-pointer hover:opacity-80
-                        ${categoryColors[event.category] || 'bg-gray-100 text-gray-800'}
+                        ${(categoryColors as Record<string, string>)[event.category] || 'bg-gray-100 text-gray-800'}
                       `}
                       title={`${event.title} - ${event.startDate.toLocaleTimeString(
                         [],

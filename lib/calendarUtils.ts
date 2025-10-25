@@ -1,4 +1,5 @@
-import { Category, CommunicationEntry, ScheduleStatus } from '@/types';
+import { CommunicationEntry } from '@/types';
+import { Category, ScheduleStatus } from '@/lib/schemas/validation';
 
 export type CalendarView = 'day' | 'week' | 'month';
 
@@ -39,16 +40,16 @@ export function convertToCalendarEvent(
   return {
     id: entry.id,
     title: entry.title,
-    category: entry.category[0] || 'other', // Use first category for display
+    category: (entry.category[0] || 'other') as Category, // Use first category for display
     startDate: new Date(entry.startDate),
     endDate: new Date(entry.endDate),
     allDay: entry.allDay,
     issue: entry.issue,
-    scheduleStatus: entry.scheduleStatus,
+    scheduleStatus: entry.scheduleStatus as ScheduleStatus,
     location: entry.location
       ? `${entry.location.city}, ${entry.location.province}`
       : undefined,
-    representatives: entry.representatives,
+    representatives: entry.representatives || [],
   };
 }
 
