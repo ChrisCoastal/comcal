@@ -5,7 +5,7 @@ import {
   Representatives,
   RelatedTo,
   CommsMaterials,
-} from '@/lib/schemas';
+} from '@/lib/schemas/validation';
 
 export const categoryColors: Record<Category, string> = {
   event: 'bg-blue-100 text-blue-800',
@@ -54,10 +54,12 @@ export const orgOptions = [
 ] as const satisfies readonly LeadOrganization[];
 
 export const representativesOptions = [
-  'Joe',
-  'Jane',
-  'David',
-  'Ella',
+  'Minister of Agriculture',
+  'Minister of Health',
+  'Minister of Education',
+  'Minister of Transportation',
+  'Minister of Environment',
+  'Minister of Energy',
 ] as const satisfies readonly Representatives[];
 
 export const relatedToOptions = [

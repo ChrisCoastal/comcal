@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   flexRender,
   getCoreRowModel,
@@ -11,7 +11,7 @@ import {
   SortingState,
   ColumnFiltersState,
 } from '@tanstack/react-table';
-import { mockEntries } from '@/data/mockData';
+import { getEntries } from '@/app/actions/entries';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -34,16 +34,41 @@ import { Calendar, Search, Plus } from 'lucide-react';
 import { getCommonPinningStyles } from '@/lib/tablePinning';
 import { useEntriesColumns } from '@/columns/entriesColumns';
 import { categoryOptions, statusOptions } from '@/lib/constants';
+import { CommunicationEntry } from '@/lib/types';
 
 export default function EntriesList() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
+  const [entries, setEntries] = useState<CommunicationEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const columns = useEntriesColumns();
 
+  // Fetch entries on component mount
+  useEffect(() => {
+    const fetchEntries = async () => {
+      try {
+        setIsLoading(true);
+        const data = await getEntries();
+        setEntries(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching entries:', err);
+        setError(
+          err instanceof Error ? err.message : 'Failed to fetch entries'
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchEntries();
+  }, []);
+
   const table = useReactTable({
-    data: mockEntries,
+    data: entries,
     columns,
     state: {
       sorting,
@@ -258,7 +283,25 @@ export default function EntriesList() {
                   ))}
                 </TableHeader>
                 <TableBody>
-                  {table.getRowModel().rows?.length ? (
+                  {isLoading ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columns.length}
+                        className='h-24 text-center'
+                      >
+                        Loading entries...
+                      </TableCell>
+                    </TableRow>
+                  ) : error ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columns.length}
+                        className='h-24 text-center text-red-600'
+                      >
+                        Error: {error}
+                      </TableCell>
+                    </TableRow>
+                  ) : table.getRowModel().rows?.length ? (
                     table.getRowModel().rows.map(row => (
                       <TableRow
                         key={row.id}

@@ -116,36 +116,3 @@ export const formSchema = z
   );
 
 export type FormData = z.infer<typeof formSchema>;
-
-// CommunicationEntry interface
-export interface CommunicationEntry {
-  id: string;
-  // Overview
-  category: Category[];
-  title: string;
-  relatedTo?: RelatedTo;
-  summary: string;
-  issue: boolean;
-  significance: string;
-  leadOrganization: LeadOrganization;
-
-  // Planning
-  commsContact: CommsContact;
-  commsMaterial: CommsMaterials[];
-  notes?: string;
-
-  // Schedule
-  scheduleStatus: ScheduleStatus;
-  startDate: string; // ISO datetime string
-  endDate: string; // ISO datetime string
-  allDay: boolean;
-  schedulingNotes?: string;
-
-  // Event
-  representatives?: Representatives[];
-  location?: Location;
-
-  // Metadata
-  createdAt: string;
-  updatedAt: string;
-}

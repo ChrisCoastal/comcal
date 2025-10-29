@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Save, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { createEntry } from '@/app/actions/entries';
 import {
   Category,
   LeadOrganization,
@@ -34,10 +35,6 @@ import {
 } from '@/lib/constants';
 import { formSchema, FormData } from '@/lib/schemas';
 
-// Form validation schema is now imported from lib/schemas.ts
-
-// Options are now imported from constants.ts
-
 export default function NewEntryPage() {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [selectedMaterials, setSelectedMaterials] = useState<CommsMaterials[]>(
@@ -46,6 +43,7 @@ export default function NewEntryPage() {
   const [selectedRepresentatives, setSelectedRepresentatives] = useState<
     Representatives[]
   >([]);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -75,6 +73,9 @@ export default function NewEntryPage() {
 
   const onSubmit = async (data: FormData) => {
     try {
+      // Clear any previous errors
+      setSubmitError(null);
+
       // Add selected materials, representatives, and categories to form data
       const formData = {
         ...data,
@@ -83,19 +84,17 @@ export default function NewEntryPage() {
         representatives: selectedRepresentatives,
       };
 
-      console.log('Form submitted:', formData);
-
-      // TODO: Implement actual submission logic
-      // This would typically involve:
-      // 1. Generate a unique ID
-      // 2. Add timestamps (createdAt, updatedAt)
-      // 3. Submit to backend API
-      // 4. Navigate back to entries list or show success message
-
-      alert('Entry created successfully! (This is a placeholder)');
+      // Call the server action to create the entry
+      await createEntry(formData);
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Error creating entry. Please try again.');
+
+      // Handle different types of errors
+      if (error instanceof Error) {
+        setSubmitError(error.message);
+      } else {
+        setSubmitError('An unexpected error occurred. Please try again.');
+      }
     }
   };
 
@@ -589,15 +588,29 @@ export default function NewEntryPage() {
           {/* Schedule Section */}
           <Card>
             <CardContent className='space-y-6'>
+              {submitError && (
+                <div className='bg-red-50 border border-red-200 rounded-md p-4'>
+                  <div className='flex'>
+                    <div className='flex-shrink-0'>
+                      <X className='h-5 w-5 text-red-400' />
+                    </div>
+                    <div className='ml-3'>
+                      <h3 className='text-sm font-medium text-red-800'>
+                        Error creating entry
+                      </h3>
+                      <div className='mt-2 text-sm text-red-700'>
+                        <p>{submitError}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className='flex items-center space-x-3 justify-end'>
                 <Button variant='outline' onClick={handleCancel}>
                   <X className='h-4 w-4 mr-2' />
                   Cancel
                 </Button>
-                <Button
-                  onClick={handleSubmit(onSubmit)}
-                  disabled={isSubmitting}
-                >
+                <Button type='submit' disabled={isSubmitting}>
                   <Save className='h-4 w-4 mr-2' />
                   {isSubmitting ? 'Saving...' : 'Save Entry'}
                 </Button>

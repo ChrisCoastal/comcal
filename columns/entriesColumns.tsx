@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { CommunicationEntry, Category } from '@/types';
+import { CommunicationEntry } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { AlertCircle } from 'lucide-react';
 import { categoryColors, statusColors } from '@/lib/constants';
@@ -47,8 +47,7 @@ export function useEntriesColumns(): ColumnDef<CommunicationEntry>[] {
           size: 300,
           minSize: 250,
         }),
-        columnHelper.accessor(row => row.category, {
-          id: 'category',
+        columnHelper.accessor('category', {
           header: 'Category',
           cell: ({ row }) => {
             const categories = row.original.category;
@@ -58,7 +57,7 @@ export function useEntriesColumns(): ColumnDef<CommunicationEntry>[] {
                   <Badge
                     key={index}
                     className={
-                      categoryColors[category] ||
+                      (categoryColors as Record<string, string>)[category] ||
                       'bg-neutral-100 text-neutral-800'
                     }
                   >
@@ -81,7 +80,10 @@ export function useEntriesColumns(): ColumnDef<CommunicationEntry>[] {
             const status = row.original.scheduleStatus;
             return (
               <Badge
-                className={statusColors[status] || 'bg-gray-100 text-gray-800'}
+                className={
+                  (statusColors as Record<string, string>)[status] ||
+                  'bg-gray-100 text-gray-800'
+                }
               >
                 {status}
               </Badge>
